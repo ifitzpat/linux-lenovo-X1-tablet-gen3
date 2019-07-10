@@ -324,6 +324,25 @@ index 1b491690ce07..eaec30380b11 100644
 
 *** Kernel install script for kernel 5.2
 
+Copy `/etc/mkinitcpio.d/linuxXX.preset` and adapt for current kernel version
+
+    #+begin_src config
+# mkinitcpio preset file for the 'linux52' package
+
+ALL_config="/etc/mkinitcpio.conf"
+ALL_kver="/boot/vmlinuz-5.2-x86_64"
+
+PRESETS=('default' 'fallback')
+
+#default_config="/etc/mkinitcpio.conf"
+default_image="/boot/initramfs-5.2-x86_64.img"
+#default_options=""
+
+#fallback_config="/etc/mkinitcpio.conf"
+fallback_image="/boot/initramfs-5.2-x86_64-fallback.img"
+fallback_options="-S autodetect"
+
+    #+end_src
 
    #+begin_src sh
 !#/bin/sh
