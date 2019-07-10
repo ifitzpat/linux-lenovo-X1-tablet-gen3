@@ -413,6 +413,52 @@ apply this patch
          0x06,
 #+end_src
 
+Ideally this would work:
+
 #+begin_src sh
 patch --verbose < x1_dsdt.patch
 #+end_src
+
+However, for me it didn't so I had to manually apply
+the edits.
+
+#+begin_src sh
+iasl -ve -tc dsdt.dsl
+#+end_src
+
+#+begin_src sh
+cp dsdt.aml /boot/
+#+end_src
+
+*** TODO fix this script for Manjaro
+
+#+begin_src sh :tangle /sudo:ianfit@localhost:/etc/grub.d/01_acpi
+#! /bin/sh -e
+
+# Uncomment to load custom ACPI table
+GRUB_CUSTOM_ACPI="/boot/dsdt.aml"
+
+# DON'T MODIFY ANYTHING BELOW THIS LINE!
+
+prefix=/usr
+exec_prefix=\${prefix}
+datadir=\${exec_prefix}/share
+
+. \${datadir}/grub/grub-mkconfig_lib
+
+# Load custom ACPI table
+if [ x\${GRUB_CUSTOM_ACPI} != x ] && [ -f \${GRUB_CUSTOM_ACPI} ] \\
+        && is_path_readable_by_grub \${GRUB_CUSTOM_ACPI}; then
+    echo "Found custom ACPI table: \${GRUB_CUSTOM_ACPI}" >&2
+    prepare_grub_to_access_device \`\${grub_probe} --target=device \${GRUB_CUSTOM_ACPI}\` | sed -e "s/^/ /"
+    cat << EOF
+acpi (\\\$root)\`make_system_path_relative_to_its_root \${GRUB_CUSTOM_ACPI}\`
+EOF
+fi
+#+end_src
+
+#+begin_src sh
+sudo chmod 755 /etc/grub.d/01_acpi
+#+end_src
+
+#+RESULTS:
