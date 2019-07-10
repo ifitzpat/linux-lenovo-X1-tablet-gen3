@@ -4,15 +4,44 @@
 #+FILETAGS:
 
 
-* Build custom kernel and apply patches
+* Getting Lenovo X1 Tablet Gen 3 hardware working on linux
+
+| Distro | Manjaro |
+| Kernel |     5.2 |
+
+
+*Working out of the box:*
+
+ - Front camera
+ - Touchscreen
+ - Stylus
+ - Keyboard
+ - Wifi
+ - Bluetooth
+ - Speakers
+ - Volume Buttons
+ - USB-C ports
+ - Mobile Broadband
+
+*Not working:*
+
+ - Trackpoint and trackpad buttons
+ - Back camera
+ - Microphone
+ - S3 sleep
+
+*Not tested:*
+
+ - SD card reader
+
+** Buttons and trackpoint
 
 First fork or clone https://github.com/torvalds/linux
 
-
-** To get buttons and trackpoint working apply this patch by u/jakeday
+Then apply this patch by u/jakeday.
 
    #+begin_src c
-  From f1592214e7b2d2f04c0ac6940aca265342fb9f5a Mon Sep 17 00:00:00 2001
+From f1592214e7b2d2f04c0ac6940aca265342fb9f5a Mon Sep 17 00:00:00 2001
 From: Jake Day <jake@ninebysix.com>
 Date: Thu, 27 Jun 2019 11:59:37 -0400
 Subject: [PATCH 03/11] buttons
@@ -272,34 +301,45 @@ index 1b491690ce07..eaec30380b11 100644
 
    #+end_src
 
-** Build and make the kernel
+*** Build and make the kernel
 
-*** Get the config of the current kernel
+**** Get the config of the current kernel
 
-    #+begin_src sh
+     #+begin_src sh
    cat /proc/config.gz | gunzip > .config
-    #+end_src
+     #+end_src
 
-*** Build
+**** Build
 
-    #+begin_src sh
+     #+begin_src sh
    make -k
-    #+end_src
+     #+end_src
 
-*** Install modules
+**** Install modules
 
-    #+begin_src sh
+     #+begin_src sh
    sudo make modules_install
-    #+end_src
+     #+end_src
 
 
-** Kernel install script for kernel 5.2
+*** Kernel install script for kernel 5.2
 
 
-  #+begin_src sh
- !#/bin/sh
+   #+begin_src sh
+!#/bin/sh
 
 cp arch/x86_64/boot/bzImage /boot/vmlinuz-5.2-x86_64
 mkinitcpio -p linux52
 update-grub
-  #+end_src
+   #+end_src
+
+
+** To get S3 sleep working
+
+Following this gist:
+https://gist.github.com/e6e4f462dff2334aad84b6edd5181c09.git
+
+
+#+begin_src
+
+#+end_src
