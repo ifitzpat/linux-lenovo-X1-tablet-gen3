@@ -496,3 +496,29 @@ esac
 This changes the tty to whichever one is running gnome-shell whenever
 the keyboard is detached and changes it back to tty3 where I run my
 tiliing WM otherwise.
+
+Add the following to /etc/acpi/handler.sh to accomplish the triggering
+
+#+begin_src sh
+    video/tabletmode)
+	case "$2" in
+	    TBLT)
+		logger 'tablet mode toggled'
+		case "$4" in
+		    00000001)
+			logger 'tablet mode'
+			/path/to/script.sh tablet
+			;;
+		    *)
+			logger 'normal mode'
+			/path/to/script.sh normal
+			;;
+		esac
+		;;
+	    *)
+		logger "ACPI action undefined: $3"
+		;;
+        esac
+        ;;
+
+#+end_src
