@@ -462,3 +462,26 @@ sudo chmod 755 /etc/grub.d/01_acpi
 #+end_src
 
 #+RESULTS:
+
+* TODO S3 sleep
+[2019-07-21 Sun 13:37]
+https://delta-xi.net/blog/?utm_source=share&utm_medium=ios_app#056
+
+* TODO Overriding a DSDT | 01.org
+[2019-07-10 Wed 23:20]
+https://01.org/linux-acpi/documentation/overriding-dsdt
+* Switching tty based on keyboard attachment
+
+#+begin_src sh
+#!/bin/sh
+
+case "$1" in
+    tablet)
+	chvt "$((ps hotty -C gnome-shell || echo 'tty1') | sed s/tty//)"
+	;;
+    *)
+	chvt 3
+	;;
+esac
+
+  #+end_src
