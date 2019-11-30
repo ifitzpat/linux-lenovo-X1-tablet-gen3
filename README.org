@@ -467,6 +467,8 @@ sudo chmod 755 /etc/grub.d/01_acpi
 * TODO S3 sleep
 [2019-07-21 Sun 13:37]
 https://delta-xi.net/blog/?utm_source=share&utm_medium=ios_app#056
+https://bbs.archlinux.org/viewtopic.php?id=234913
+https://forums.lenovo.com/t5/Ubuntu/X1-Gen3-Tablet-Linux-support/td-p/4451259
 
 * TODO Overriding a DSDT | 01.org
 [2019-07-10 Wed 23:20]
