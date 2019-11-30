@@ -7,7 +7,7 @@
 * Getting Lenovo X1 Tablet Gen 3 hardware working on linux
 
 | Distro | Manjaro |
-| Kernel |     5.2 |
+| Kernel |     5.4 |
 
 
 *Working out of the box:*
@@ -22,21 +22,22 @@
  - Volume Buttons
  - USB-C ports
  - Mobile Broadband
+ - Trackpoint and trackpad buttons
+ - SD card reader
+ - Accelerometers (with iio-sensor-proxy)
 
 *Not working:*
 
- - Trackpoint and trackpad buttons
  - Back camera
  - Microphone
  - S3 sleep
 
 *Not tested:*
 
- - SD card reader
- - Accelerometers
 
-** Buttons and trackpoint
+** CANCELLED Buttons and trackpoint:                              :CANCELLED:
 
+   - State "CANCELLED"  from              [2019-11-30 Sat 13:13]
 First fork or clone https://github.com/torvalds/linux
 
 Then apply this patch by u/jakeday.
