@@ -473,6 +473,12 @@ https://delta-xi.net/blog/?utm_source=share&utm_medium=ios_app#056
 https://01.org/linux-acpi/documentation/overriding-dsdt
 * Switching tty based on keyboard attachment
 
+For development I prefer a minimal DE with a tiling WM, however
+whenever I switch to tablet-mode (i.e., when the keyboard is
+disconnected). I'd like to use the touch interface in a full DE (e.g.,
+gnome-shell). I trigger the following snippet on the tablet-mode acpi
+event to accomplish this:
+
 #+begin_src sh
 #!/bin/sh
 
@@ -486,3 +492,7 @@ case "$1" in
 esac
 
   #+end_src
+
+This changes the tty to whichever one is running gnome-shell whenever
+the keyboard is detached and changes it back to tty3 where I run my
+tiliing WM otherwise.
