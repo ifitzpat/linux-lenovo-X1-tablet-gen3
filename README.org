@@ -486,7 +486,7 @@ event to accomplish this:
 
 case "$1" in
     tablet)
-	chvt "$((ps hotty -C gnome-shell || echo 'tty1') | sed s/tty//)"
+	chvt "$(((ps hotty -C gnome-shell | grep "tty") || echo 'tty1') | sed s/tty//)"
 	;;
     *)
 	chvt 3
@@ -524,3 +524,5 @@ Add the following to /etc/acpi/handler.sh to accomplish the triggering
         ;;
 
 #+end_src
+* Change touchscreen driver to libinput
+[[file:/usr/share/X11/xorg.conf.d/70-wacom.conf::Driver%20"wacom"]]
